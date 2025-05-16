@@ -45,7 +45,7 @@ function displayData(data: any) {
 
     image.src = item.image["desktop"];
     image.alt = item.name;
-    addBtn.innerText = "Add to Cart";
+    addBtn.innerHTML = `<img src = "../public/assets/images/icon-add-to-cart.svg" alt ="Cart btn">Add to Cart`;
     incrementBtn.innerText = "+";
     decrementBtn.innerText = "−";
     quantityDisplay.innerText = "1";
@@ -116,7 +116,7 @@ function createCartItemElement(product: TProduct) {
           ).toFixed(2)}</p>
         </div>
       </div>
-      <p class="cancel">X</p>
+      <p class="cancel"><img src = "../public/assets/images/icon-remove-item.svg" alt ="Cross" ></p>
     </div>
   `;
 
