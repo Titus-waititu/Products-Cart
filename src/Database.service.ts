@@ -63,11 +63,11 @@ export class DatabaseService {
         });
     }
 
-    async deleteCartItem(id: number): Promise<void> {
+    async deleteCartItem(name:string): Promise<void> {
         return new Promise((resolve, reject) => {
             const transaction = this.db!.transaction([this.STORE_NAME], 'readwrite');
             const store = transaction.objectStore(this.STORE_NAME);
-            const request = store.delete(id);
+            const request = store.delete(name);
 
             request.onsuccess = () => resolve();
             request.onerror = () => reject(request.error);

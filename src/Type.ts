@@ -7,5 +7,6 @@ interface TProduct {
     name: string;
     category: string;
     price: number;
+    quantity?: number;
 }
 export type {TProduct}
