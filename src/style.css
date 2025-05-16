@@ -1,63 +1,17 @@
-#app{
-  display: flex;
-  gap: 2rem;
-}
-
-
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #fafafa;
-  color: #333;
-}
-.add-to-cart-container {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  position: relative;
-  padding: 5px;
-}
-
-.incBtn,
-.decBtn {
-  display: none;
-  padding: 2px 8px;
-  font-size: 1rem;
-  cursor: pointer;
-  background-color: #ddd;
-  border: none;
-  border-radius: 4px;
-}
-
-.quantity-display {
-  display: none;
-  font-weight: bold;
-}
-
-.items:hover .incBtn,
-.items:hover .decBtn,
-.items:hover .quantity-display {
-  display: inline-block;
-}
-
-.addBtn {
-  padding: 5px 10px;
-  background-color: #1e90ff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
+/* Base layout */
 #app {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  padding: 2rem;
+  /* justify-content: space-between; */
   gap: 2rem;
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fafafa;
+  color: #333;
+  margin: 0;
 }
 
+/* Desserts grid */
 .desserts-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -65,13 +19,14 @@ body {
   flex: 3;
 }
 
+/* Dessert item card */
 .items {
   background: white;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   padding: 1rem;
-  /* text-align: center; */
   transition: transform 0.2s ease-in-out;
+  cursor: pointer;
 }
 
 .items:hover {
@@ -85,116 +40,64 @@ body {
   margin-bottom: 1rem;
 }
 
-.addBtn,.confirmBtn {
-  background-color:white;
-  border: none;
-  color: white;
+/* Buttons */
+.addBtn,
+.confirmBtn {
+  background-color: white;
+  border: 1px solid black;
+  color: black;
   padding: 0.5rem 1rem;
   margin-top: 0.5rem;
   border-radius: 6px;
   cursor: pointer;
   font-size: 0.9rem;
   transition: background-color 0.3s ease;
-  border: 1px solid black;
-  color: black  ;
-}
-.cart-items{
-  display: flex;
-  justify-content: flex-end;
- 
-}
-.cart-item{
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-}
-.cart-card{
-  display: flex;
-  flex-direction: column;
-  
-}
-.cart-item-quantity{
-  display: flex;
-  align-items: flex-start;
-  gap: 5px;
-}
-.addBtn:hover,.confirmBtn:hover {
-  background-color:  hsl(14, 86%, 42%);
 }
 
-.name {
-  font-size: 1.2rem;
-  margin: 0.5rem 0;
+.addBtn:hover,
+.confirmBtn:hover {
+  background-color: hsl(14, 86%, 42%);
+  color: white;
 }
 
-.category {
+/* Quantity controls (initially hidden) */
+.incBtn,
+.decBtn,
+.quantity-display {
+  display: none;
+  padding: 2px 8px;
   font-size: 1rem;
-  color: #666;
-  margin-bottom: 0.3rem;
-}
-
-.price {
-  font-size: 1rem;
-  font-weight: bold;
-  color: #2e7d32;
-}
-
-.cart {
-  flex: 1;
-  background-color: #fff;
-  padding: 1rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  max-height: 90vh;
-  overflow-y: auto;
-  position: sticky;
-  top: 2rem;
-}
-
-.cart h2 {
-  margin-bottom: 1rem;
-}
-
-.cart-items {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #f1f1f1;
-  padding: 0.7rem 1rem;
-  margin-bottom: 0.5rem;
-  border-radius: 8px;
-}
-
-.cancel {
-  color: red;
-  font-weight: bold;
   cursor: pointer;
-  margin-right: 1rem;
-  font-size: 1.1rem;
+  border-radius: 4px;
 }
 
-.cart-count {
-  font-size: 1.2rem;
+.incBtn,
+.decBtn {
+  background-color: #ddd;
+  border: none;
+  user-select: none;
+}
+
+.quantity-display {
   font-weight: bold;
-  color: #2e7d32;
-  margin-left: 0.5rem;
 }
 
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-  #app {
-    flex-direction: column;
-  }
-
-  .desserts-container {
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  }
-
-  .cart {
-    max-height: unset;
-    position: static;
-  }
+.items:hover .incBtn,
+.items:hover .decBtn,
+.items:hover .quantity-display {
+  display: inline-block;
 }
+
+/* Add to cart container */
+.add-to-cart-container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px;
+  position: relative;
+}
+
+/* Cart styles */
 .cart {
   flex: 1;
   background-color: #fff;
@@ -223,11 +126,10 @@ body {
 .cart-item {
   display: flex;
   justify-content: space-between;
-  /* align-items: center; */
   background-color: #f7f7f7;
   padding: 0.8rem 1rem;
   border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   transition: background-color 0.2s ease;
 }
 
@@ -267,11 +169,43 @@ body {
   padding: 0.3rem 0.6rem;
   border-radius: 50%;
   transition: background-color 0.2s ease;
+  user-select: none;
 }
 
 .cancel:hover {
   background-color: #ffeaea;
 }
+
+.cart-count {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #2e7d32;
+  margin-left: 0.5rem;
+}
+.cart-item-quantity{
+  display: flex;
+  gap: 10px;
+}
+
+/* Text styling */
+.name {
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+}
+
+.category {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 0.3rem;
+}
+
+.price {
+  font-size: 1rem;
+  font-weight: bold;
+  color: hsl(14, 86%, 42%);
+}
+
+/* Responsive Adjustments */
 @media (max-width: 1024px) {
   .desserts-container {
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -285,7 +219,7 @@ body {
   }
 
   .desserts-container {
-    grid-template-columns: 1fr; /* one column for easier reading */
+    grid-template-columns: 1fr; /* stack items */
     gap: 1rem;
   }
 
@@ -319,13 +253,4 @@ body {
   .cart-item-quantity {
     gap: 10px;
   }
-}
-.cart-count {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #2e7d32;
-  margin-left: 0.5rem;
-}
-.price{
-  color:hsl(14, 86%, 42%) ;
 }

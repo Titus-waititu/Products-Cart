@@ -52,7 +52,7 @@ function displayData(data: any) {
 
     name.innerText = item.name;
     category.innerText = item.category;
-    price.innerText = `$${item.price}`;
+    price.innerText = `$${item.price.toFixed(2)}`;
 
     let quantity = 1;
 
@@ -148,15 +148,13 @@ async function loadCart() {
     cart.appendChild(cartItemElem);
   });
 
-  cartHeading.innerText = `Your Cart (${cartCount} item${
-    cartCount !== 1 ? "s" : ""
-  })`;
+  cartHeading.innerText = `Your Cart (${cartCount})`;
   // cartNum.innerText = cartCount.toString();
 
   // Show total price
   const totalElem = document.createElement("p");
   totalElem.classList.add("cart-total");
-  totalElem.innerText = `Total: $${totalPrice.toFixed(2)}`;
+  totalElem.innerText = `Total Order: $${totalPrice.toFixed(2)}`;
   cart.appendChild(totalElem);
 
   // Confirm order button

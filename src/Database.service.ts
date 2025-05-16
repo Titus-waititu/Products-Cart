@@ -45,24 +45,6 @@ export class DatabaseService {
         });
     }
 
-    async updateCartItem(id: number, updatedProduct: TProduct): Promise<void> {
-        return new Promise((resolve, reject) => {
-            const transaction = this.db!.transaction([this.STORE_NAME], 'readwrite');
-            const store = transaction.objectStore(this.STORE_NAME);
-            const request = store.get(id);
-
-            request.onsuccess = () => {
-                const data = request.result;
-                if (data) {
-                    Object.assign(data, updatedProduct);
-                    store.put(data);
-                    resolve();
-                }
-            };
-            request.onerror = () => reject(request.error);
-        });
-    }
-
    async deleteCartItem(name: string): Promise<void> {
   return new Promise((resolve, reject) => {
     const transaction = this.db!.transaction([this.STORE_NAME], "readwrite");
@@ -74,9 +56,6 @@ export class DatabaseService {
       if (cursor) {
         if (cursor.value.name === name) {
           cursor.delete();
-          // Optional: resolve here if you want to delete only first match
-          // resolve();
-          // return;
         }
         cursor.continue();
       } else {
@@ -108,15 +87,4 @@ export class DatabaseService {
     });
 }
 
-
-    async clearCart(): Promise<void> {
-        return new Promise((resolve, reject) => {
-            const transaction = this.db!.transaction([this.STORE_NAME], 'readwrite');
-            const store = transaction.objectStore(this.STORE_NAME);
-            const request = store.clear();
-
-            request.onsuccess = () => resolve();
-            request.onerror = () => reject(request.error);
-        });
-    }
 }
