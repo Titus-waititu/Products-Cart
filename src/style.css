@@ -135,7 +135,8 @@ button {
 }
 
 .cancel {
-  color: red;
+  margin-top: 1rem;
+  color: gray;
   font-weight: bold;
   cursor: pointer;
   font-size: 1.2rem;
