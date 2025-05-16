@@ -272,7 +272,54 @@ body {
 .cancel:hover {
   background-color: #ffeaea;
 }
+@media (max-width: 1024px) {
+  .desserts-container {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+}
 
+@media (max-width: 768px) {
+  #app {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .desserts-container {
+    grid-template-columns: 1fr; /* one column for easier reading */
+    gap: 1rem;
+  }
+
+  .cart {
+    max-height: none;
+    position: static;
+    margin-top: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .add-to-cart-container {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .addBtn,
+  .incBtn,
+  .decBtn,
+  .quantity-display {
+    font-size: 0.9rem;
+    padding: 6px 10px;
+  }
+
+  .cart-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .cart-item-quantity {
+    gap: 10px;
+  }
+}
 .cart-count {
   font-size: 1.2rem;
   font-weight: bold;
