@@ -1,0 +1,138 @@
+#app{
+  display: flex;
+  gap: 2rem;
+}
+
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #fafafa;
+  color: #333;
+}
+
+#app {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 2rem;
+  gap: 2rem;
+}
+
+.desserts-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
+  flex: 3;
+}
+
+.items {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
+}
+
+.items:hover {
+  transform: scale(1.02);
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.addBtn {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.addBtn:hover {
+  background-color: #45a049;
+}
+
+.name {
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+}
+
+.category {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 0.3rem;
+}
+
+.price {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #2e7d32;
+}
+
+.cart {
+  flex: 1;
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-height: 90vh;
+  overflow-y: auto;
+  position: sticky;
+  top: 2rem;
+}
+
+.cart h2 {
+  margin-bottom: 1rem;
+}
+
+.cart-items {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f1f1f1;
+  padding: 0.7rem 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 8px;
+}
+
+.cancel {
+  color: red;
+  font-weight: bold;
+  cursor: pointer;
+  margin-right: 1rem;
+  font-size: 1.1rem;
+}
+
+.cart-count {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #2e7d32;
+  margin-left: 0.5rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  #app {
+    flex-direction: column;
+  }
+
+  .desserts-container {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+
+  .cart {
+    max-height: unset;
+    position: static;
+  }
+}
