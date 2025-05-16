@@ -3,8 +3,8 @@ import { DatabaseService } from "./Database.service";
 import type { TProduct } from "./Type";
 
 const dbService = new DatabaseService();
-let cartCount = 0;
 const cartNum = document.querySelector<HTMLSpanElement>(".cart-count")!;
+let cartCount = 0;
 
 async function getData() {
   await dbService.initDatabase();
@@ -69,18 +69,15 @@ function displayData(data: any) {
     });
 
     addBtn.addEventListener("click", async () => {
-        const product: TProduct = {
-          
-          name: item.name,
-          price: item.price,
-          category: item.category,
-          image: item.image["desktop"],
-          quantity: quantity,
-        }
-        await dbService.addToCart(product);
-        // product.id = id;
-        updateCartUI(product, true);
-      
+      const product: TProduct = {
+        name: item.name,
+        price: item.price,
+        category: item.category,
+        image: item.image["desktop"],
+        quantity,
+      };
+      await dbService.addToCart(product);
+      await loadCart();
     });
 
     addToCartContainer.appendChild(decrementBtn);
@@ -102,54 +99,80 @@ function displayData(data: any) {
   }
 }
 
-function updateCartUI(product: TProduct, isNew: boolean = false) {
-  const cart = document.querySelector<HTMLDivElement>(".cart")!;
+function createCartItemElement(product: TProduct) {
   const cartItems = document.createElement("div");
   cartItems.classList.add("cart-items");
-  cartItems.setAttribute("data-id", String(product.id));
+  cartItems.setAttribute("data-name", product.name);
 
   cartItems.innerHTML = `
-
     <div class="cart-item">
       <div class="cart-item-name">
         <h2>${product.name}</h2>
         <div class="cart-item-quantity">
           <p><span>${product.quantity}</span> x</p>
           <p class="cart-item-price">@$${product.price}</p>
-          <p class="cart-item-total">$${product.price * (product.quantity ?? 1)}</p>
+          <p class="cart-item-total">$${(
+            product.price * (product.quantity ?? 1)
+          ).toFixed(2)}</p>
         </div>
       </div>
       <p class="cancel">X</p>
     </div>
-    
   `;
 
   cartItems.querySelector(".cancel")!.addEventListener("click", async () => {
-    if (product.id !== undefined) {
-      await dbService.deleteCartItem(product.name);
-      cartItems.remove();
-      cartCount -= product.quantity ??1;
-      cartNum.innerText = cartCount.toString();
-    }
+    await dbService.deleteCartItem(product.name);
+    await loadCart();
   });
-  
-        // <p>This is a carbon neutral delivery</p>
-        // <button class="confirmBtn">confirm order</button>
-  cart.appendChild(cartItems);
-  if (isNew) {
-    cartCount += product.quantity ?? 1;
-    cartNum.innerText = cartCount.toString();
-  }
+
+  return cartItems;
 }
 
 async function loadCart() {
+  const cart = document.querySelector<HTMLDivElement>(".cart")!;
+  cart.innerHTML = "";
+
+  const cartHeading = document.createElement("h2");
+  cartHeading.classList.add("cart-heading");
+  cart.appendChild(cartHeading);
+
   const cartItems = await dbService.getCartItems();
+
   cartCount = 0;
-  cartItems.forEach((item: TProduct) => {
-    updateCartUI(item);
+  let totalPrice = 0;
+
+  cartItems.forEach((item) => {
     cartCount += item.quantity ?? 1;
+    totalPrice += item.price * (item.quantity ?? 1);
+    const cartItemElem = createCartItemElement(item);
+    cart.appendChild(cartItemElem);
   });
-  cartNum.innerText = cartCount.toString();
+
+  cartHeading.innerText = `Your Cart (${cartCount} item${
+    cartCount !== 1 ? "s" : ""
+  })`;
+  // cartNum.innerText = cartCount.toString();
+
+  // Show total price
+  const totalElem = document.createElement("p");
+  totalElem.classList.add("cart-total");
+  totalElem.innerText = `Total: $${totalPrice.toFixed(2)}`;
+  cart.appendChild(totalElem);
+
+  // Confirm order button
+  const confirm = document.createElement("button");
+  confirm.classList.add("confirmBtn");
+  confirm.innerText = "Confirm Order";
+  confirm.addEventListener("click", () => {
+    if (cartCount === 0) {
+      alert("Your cart is empty.");
+      return;
+    }
+    alert(
+      `Order confirmed! Total amount: $${totalPrice.toFixed(2)}. Thank you!`
+    );
+  });
+  cart.appendChild(confirm);
 }
 
 getData();
