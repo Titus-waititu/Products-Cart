@@ -3,7 +3,7 @@ import { DatabaseService } from "./Database.service";
 import type { TProduct } from "./Type";
 
 const dbService = new DatabaseService();
-const cartNum = document.querySelector<HTMLSpanElement>(".cart-count")!;
+// const cartNum = document.querySelector<HTMLSpanElement>(".cart-count")!;
 let cartCount = 0;
 
 async function getData() {
